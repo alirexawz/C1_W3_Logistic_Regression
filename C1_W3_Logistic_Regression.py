@@ -58,3 +58,43 @@ def compute_cost(X, y, w, b, lambda_= 1):
  ### END CODE HERE ### 
 
  return total_cost
+
+
+def compute_gradient(X, y, w, b, lambda_=None): 
+          m, n = X.shape
+          dj_dw = np.zeros(w.shape)
+          dj_db = 0.
+
+          ### START CODE HERE ### 
+          for i in range(m):
+             z_wb = 0
+             # Loop over each feature
+             for j in range(n): 
+                     # Add the corresponding term to z_wb
+                     z_wb_ij = X[i, j] * w[j]
+                     z_wb += z_wb_ij
+
+             # Add bias term 
+             z_wb += b
+
+             # Calculate the prediction from the model
+             f_wb = sig(z_wb)
+
+              # Calculate the  gradient for b from this example
+             dj_db_i = f_wb - y[i] # Your code here to calculate the error
+
+              # add that to dj_db
+             dj_db += dj_db_i
+
+              # get dj_dw for each attribute
+             for j in range(n):
+                  # You code here to calculate the gradient from the i-th example for j-th attribute
+                  dj_dw_ij = (f_wb - y[i])* X[i][j]  
+                  dj_dw[j] += dj_dw_ij
+
+          # divide dj_db and dj_dw by total number of examples
+          dj_dw = dj_dw / m
+          dj_db = dj_db / m
+          ### END CODE HERE ###
+
+          return dj_db, dj_dw
