@@ -196,3 +196,22 @@ def compute_cost_reg(X, y, w, b, lambda_ = 1):
          total_cost = cost_without_reg + (lambda_/(2 * m)) * reg_cost
 
          return total_cost
+    
+    
+    def compute_gradient_reg(X, y, w, b, lambda_ = 1): 
+      m, n = X.shape
+
+      dj_db, dj_dw = compute_gradient(X, y, w, b)
+
+      ### START CODE HERE ###     
+      # Loop over the elements of w
+      for j in range(n): 
+
+          dj_dw_j_reg = (lambda_ / m) * w[j] 
+
+          # Add the regularization term  to the correspoding element of dj_dw
+          dj_dw[j] = dj_dw[j] + dj_dw_j_reg
+
+      ### END CODE HERE ###         
+
+      return dj_db, dj_dw
